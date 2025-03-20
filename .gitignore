@@ -130,3 +130,6 @@ dist
 .pnp.*
 
 .windsurfrules
+.local
+*.egg-info/
+*.dist-info/

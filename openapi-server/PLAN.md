@@ -8,8 +8,13 @@ This project aims to create a Model Context Protocol (MCP) server that dynamical
 4. Handle request/response mapping between MCP tools and API endpoints
 
 ## Configuration
-The server will read configuration from `OPENAPI_CONFIG` environment variable in JSON format:
+The server will read configuration from a JSON file. The path to this file is specified via the `OPENAPI_CONFIG` environment variable:
 
+```bash
+export OPENAPI_CONFIG=/path/to/config.json
+```
+
+The config file should contain:
 ```json
 {
   "spec_uri": "file:///path/to/spec.yaml",  // or "https://api.example.com/openapi.json"
@@ -169,15 +174,12 @@ The following features are deferred to future versions:
 ## Implementation Updates
 
 Based on the questions discussion:
-1. Configuration simplified to use URI format:
-```json
-{
-  "spec_uri": "file:///path/to/spec.yaml",  // or "https://api.example.com/openapi.json"
-  "auth": {
-    "bearer_token": "your-token-here"
-  }
-}
-```
+1. Configuration loading from file:
+   - Read file path from `OPENAPI_CONFIG` environment variable
+   - Load and parse JSON from the specified file
+   - Support both absolute and relative paths
+   - Validate file exists and is readable
+   - Validate JSON content matches expected schema
 
 2. Add URI parsing and validation
    - Use Python's `urllib.parse` for URI parsing
